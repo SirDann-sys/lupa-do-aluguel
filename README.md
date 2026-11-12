@@ -57,18 +57,20 @@ conjuntos:
 - **teste cego** (16 contratos): escritos depois, com redações novas, **sem nenhum ajuste posterior**.
 
 A avaliação com IA roda toda segunda no GitHub Actions e publica o resultado
-[na página](https://sirdann-sys.github.io/lupa-do-aluguel/#como-funciona), do jeito que sair.
-A linha de base sem IA, que roda em todo push:
+[na página](https://sirdann-sys.github.io/lupa-do-aluguel/#como-funciona), do jeito que sair. Última medição (12/11/2026):
 
 | Extrator | Conjunto | Contratos exatos | Precisão | Recall |
 |---|---|---|---|---|
-| Heurística (regex) | desenvolvimento | 9/9 | 100% | 100% |
-| Heurística (regex) | teste cego | 10/16 | 100% | 43% |
+| **Groq · gpt-oss-120b** | desenvolvimento | 9/9 | 100% | 100% |
+| **Groq · gpt-oss-120b** | **teste cego** | **16/16** | 100% | 100% |
+| Linha de base: heurística, sem IA | desenvolvimento | 9/9 | 100% | 100% |
+| Linha de base: heurística, sem IA | teste cego | 10/16 | 100% | 43% |
 
-A queda de 100% para 43% é o retrato do que regex não pega: "honorários de corretagem", "chamadas de capital
-para benfeitorias", "pintará na cor branca ainda que em bom estado". É exatamente o espaço do LLM. Uma limitação
-conhecida da heurística v1, mantida de propósito para não contaminar o teste cego: ela não reconhece
-"LOCATÁRIA" no feminino.
+A linha de base mostra o que a IA acrescenta: regex não pega "honorários de corretagem", "chamadas de capital
+para benfeitorias", "pintará na cor branca ainda que em bom estado" ou "quitará os três primeiros meses"; o LLM pegou
+todos. A heurística só responde quando a IA está fora do ar, e o relatório avisa o usuário quando isso acontece.
+Uma limitação conhecida dela, mantida de propósito para não contaminar o teste cego: não reconhece "LOCATÁRIA"
+no feminino. 25 contratos fictícios ainda são uma amostra pequena; o número vale como sinal, não como garantia.
 
 ## Engenharia
 
