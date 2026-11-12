@@ -156,3 +156,6 @@ details summary { cursor: pointer; font-weight: 600; margin-top: 12px; }
 @media (prefers-reduced-motion: reduce) {
   .status.carregando::before { animation: none; }
 }
+
+.linha-de-base { font-size: 0.88rem; color: var(--suave); border-top: 1px solid var(--borda); margin-top: 14px; padding-top: 12px; }
+.linha-de-base strong { color: var(--texto); }

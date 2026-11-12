@@ -212,39 +212,32 @@ async function carregarRegras() {
   }
 }
 
-async function carregarMetricas() {
-  const alvo = $("metricas");
-  const linhas = [];
-  for (const nome of ["groq", "gemini", "heuristico"]) {
-    try {
-      const resposta = await fetch(`dados/${nome}.json`);
-      if (resposta.ok) linhas.push(await resposta.json());
-    } catch { /* arquivo ausente: provedor ainda não avaliado */ }
+async function lerAvaliacao(nome) {
+  try {
+    const resposta = await fetch(`dados/${nome}.json`);
+    return resposta.ok ? await resposta.json() : null;
+  } catch {
+    return null;   // provedor ainda não avaliado
   }
-  if (!linhas.length) {
-    alvo.replaceChildren(criar("p", "Ainda não há avaliação publicada."));
-    return;
-  }
+}
 
+function tabelaDaIA(avaliacoes) {
   const tabela = criar("table");
-  tabela.append(criar("caption", `Última avaliação: ${linhas[0].gerado_em.slice(0, 10)}`));
+  tabela.append(criar("caption", `Última avaliação: ${avaliacoes[0].gerado_em.slice(0, 10)}`));
   const cabeca = criar("tr");
-  for (const t of ["Extrator", "Conjunto", "Contratos exatos", "Precisão", "Recall"]) {
+  for (const t of ["IA", "Conjunto", "Contratos exatos", "Precisão", "Recall"]) {
     const th = criar("th", t);
     th.scope = "col";
     cabeca.append(th);
   }
   const thead = criar("thead");
   thead.append(cabeca);
-  tabela.append(thead);
   const corpo = criar("tbody");
-  for (const dados of linhas) {
+  for (const dados of avaliacoes) {
     for (const [conjunto, c] of Object.entries(dados.conjuntos)) {
       const tr = criar("tr");
-      const nome = dados.provedor === "heuristico" ? "Modo básico (sem IA)"
-        : `${NOMES_PROVEDOR[dados.provedor]} · ${dados.modelo}`;
       tr.append(
-        criar("td", nome),
+        criar("td", `${NOMES_PROVEDOR[dados.provedor]} · ${dados.modelo}`),
         criar("td", conjunto === "teste_cego" ? "teste cego" : "desenvolvimento"),
         criar("td", `${c.contratos_certos} de ${c.contratos}`),
         criar("td", porcentagem(c.precisao)),
@@ -253,10 +246,39 @@ async function carregarMetricas() {
       corpo.append(tr);
     }
   }
-  tabela.append(corpo);
+  tabela.append(thead, corpo);
   const rolagem = criar("div", undefined, "tabela-rolagem");
   rolagem.append(tabela);
-  alvo.replaceChildren(rolagem);
+  return rolagem;
+}
+
+async function carregarMetricas() {
+  const alvo = $("metricas");
+  const ia = (await Promise.all(["groq", "gemini"].map(lerAvaliacao))).filter(Boolean);
+  const base = await lerAvaliacao("heuristico");
+  const partes = [];
+
+  if (ia.length) {
+    partes.push(tabelaDaIA(ia));
+  } else {
+    partes.push(criar("p", "A avaliação com IA ainda não foi publicada."));
+  }
+
+  // O modo básico é o plano de reserva, não a ferramenta: aparece como linha de
+  // base, para mostrar quanto a IA acrescenta, e não com o mesmo peso da IA.
+  const cego = base?.conjuntos?.teste_cego;
+  if (cego) {
+    const nota = criar("p", undefined, "linha-de-base");
+    nota.append(
+      criar("strong", "Linha de base, sem IA: "),
+      `o modo básico por palavras-chave, que só entra se a IA estiver fora do ar, acerta ` +
+      `${cego.contratos_certos} de ${cego.contratos} no teste cego. Ele nunca aponta problema ` +
+      `que não existe (precisão de ${porcentagem(cego.precisao)}), mas deixa passar armadilhas ` +
+      `disfarçadas. A diferença para a tabela acima é o que a IA acrescenta.`,
+    );
+    partes.push(nota);
+  }
+  alvo.replaceChildren(...partes);
 }
 
 // ------------------------------------------------------------------ início
