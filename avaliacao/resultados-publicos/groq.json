@@ -1,0 +1,491 @@
+{
+  "gerado_em": "2026-11-12T17:23:13+00:00",
+  "provedor": "groq",
+  "modelo": "openai/gpt-oss-120b",
+  "conjuntos": {
+    "desenvolvimento": {
+      "contratos": 9,
+      "contratos_certos": 9,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "vp": 27,
+      "fp": 0,
+      "fn": 0,
+      "por_regra": {
+        "1": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 5,
+          "fp": 0,
+          "fn": 0
+        },
+        "2": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 4,
+          "fp": 0,
+          "fn": 0
+        },
+        "3": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 4,
+          "fp": 0,
+          "fn": 0
+        },
+        "4": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 4,
+          "fp": 0,
+          "fn": 0
+        },
+        "5": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 4,
+          "fp": 0,
+          "fn": 0
+        },
+        "6": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 3,
+          "fp": 0,
+          "fn": 0
+        },
+        "7": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 3,
+          "fp": 0,
+          "fn": 0
+        }
+      }
+    },
+    "teste_cego": {
+      "contratos": 16,
+      "contratos_certos": 16,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "vp": 14,
+      "fp": 0,
+      "fn": 0,
+      "por_regra": {
+        "1": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 3,
+          "fp": 0,
+          "fn": 0
+        },
+        "2": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "3": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "4": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "5": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "6": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "7": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 2,
+          "fp": 0,
+          "fn": 0
+        }
+      }
+    }
+  },
+  "detalhes": [
+    {
+      "arquivo": "01_limpo.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 5635
+    },
+    {
+      "arquivo": "02_abusivo_full.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "apontadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 13023
+    },
+    {
+      "arquivo": "03_abusivo_sutil.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "apontadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 10255
+    },
+    {
+      "arquivo": "04_clausula_dupla.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        2
+      ],
+      "apontadas": [
+        1,
+        2
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 4559
+    },
+    {
+      "arquivo": "10_seguro_fianca_ok.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 6789
+    },
+    {
+      "arquivo": "11_caucao_em_reais.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        1
+      ],
+      "apontadas": [
+        1
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 8062
+    },
+    {
+      "arquivo": "12_caucao_no_limite.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 5853
+    },
+    {
+      "arquivo": "13_reajuste_trimestral.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        6
+      ],
+      "apontadas": [
+        6
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 5121
+    },
+    {
+      "arquivo": "14_reajuste_bienal_ok.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 3547
+    },
+    {
+      "arquivo": "15_fiador_e_seguro.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        2
+      ],
+      "apontadas": [
+        2
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 5272
+    },
+    {
+      "arquivo": "16_corretagem.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        4
+      ],
+      "apontadas": [
+        4
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 5409
+    },
+    {
+      "arquivo": "17_rateio_benfeitorias.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        3
+      ],
+      "apontadas": [
+        3
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 6145
+    },
+    {
+      "arquivo": "18_pintura_condicionada_ok.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 6414
+    },
+    {
+      "arquivo": "19_pintura_branca.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        5
+      ],
+      "apontadas": [
+        5
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 6714
+    },
+    {
+      "arquivo": "20_tres_primeiros_meses.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        7
+      ],
+      "apontadas": [
+        7
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 6702
+    },
+    {
+      "arquivo": "21_numerado_sem_paragrafos.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        1,
+        6
+      ],
+      "apontadas": [
+        1,
+        6
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 4380
+    },
+    {
+      "arquivo": "22_caucao_e_cessao.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        2
+      ],
+      "apontadas": [
+        2
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 5368
+    },
+    {
+      "arquivo": "23_limpo_longo.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 7387
+    },
+    {
+      "arquivo": "24_negacao_taxa.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 5948
+    },
+    {
+      "arquivo": "25_varias_disfarcadas.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        1,
+        3,
+        4,
+        7
+      ],
+      "apontadas": [
+        1,
+        3,
+        4,
+        7
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 35184
+    },
+    {
+      "arquivo": "contrato_1_limpo_A.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 19252
+    },
+    {
+      "arquivo": "contrato_2_limpo_B.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 7715
+    },
+    {
+      "arquivo": "contrato_3_sujo_A.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "apontadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 10198
+    },
+    {
+      "arquivo": "contrato_4_sujo_B.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "apontadas": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 8170
+    },
+    {
+      "arquivo": "contrato_5_ambiguo.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "groq",
+      "fatos_descartados": 0,
+      "ms": 12605
+    }
+  ]
+}
