@@ -1,0 +1,41 @@
+# Publica o front-end no GitHub Pages, junto com contratos de exemplo e o resultado da avaliação.
+name: Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ["frontend/**", "avaliacao/contratos/**", "avaliacao/resultados-publicos/**"]
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - name: Monta o site
+        run: |
+          mkdir -p _site/exemplos _site/dados
+          cp -r frontend/. _site/
+          cp avaliacao/contratos/03_abusivo_sutil.txt _site/exemplos/armadilhas.txt
+          cp avaliacao/contratos/25_varias_disfarcadas.txt _site/exemplos/disfarcadas.txt
+          cp avaliacao/contratos/23_limpo_longo.txt _site/exemplos/limpo.txt
+          cp avaliacao/resultados-publicos/*.json _site/dados/ 2>/dev/null || true
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+      - id: deploy
+        uses: actions/deploy-pages@v4

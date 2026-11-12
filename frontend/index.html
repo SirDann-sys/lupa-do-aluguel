@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://lupa-do-aluguel-api.onrender.com http://127.0.0.1:8000 http://localhost:8000; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>Lupa do Aluguel</title>
+  <meta name="description" content="Aponta cláusulas abusivas em contratos de aluguel residencial à luz da Lei do Inquilinato. Projeto de demonstração.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="estilo.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topo">
+    <div class="largura">
+      <p class="marca"><img src="favicon.svg" alt="" width="28" height="28"> Lupa do Aluguel</p>
+      <nav aria-label="Links do projeto">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="https://github.com/SirDann-sys/lupa-do-aluguel">Código</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="largura">
+    <section class="apresentacao">
+      <h1>Seu contrato de aluguel tem alguma armadilha?</h1>
+      <p>Cole o contrato ou envie o PDF. A Lupa confere 7 regras da Lei do Inquilinato e mostra
+        cada trecho que parece ilegal, com o artigo da lei e o que pedir ao proprietário.</p>
+    </section>
+
+    <section class="painel" aria-labelledby="titulo-entrada">
+      <h2 id="titulo-entrada" class="visualmente-oculto">Enviar contrato</h2>
+
+      <div class="abas" role="tablist" aria-label="Forma de envio">
+        <button role="tab" id="aba-texto" aria-controls="painel-texto" aria-selected="true">Colar texto</button>
+        <button role="tab" id="aba-pdf" aria-controls="painel-pdf" aria-selected="false" tabindex="-1">Enviar PDF</button>
+      </div>
+
+      <form id="formulario" novalidate>
+        <div id="painel-texto" role="tabpanel" aria-labelledby="aba-texto">
+          <label for="texto">Texto do contrato</label>
+          <textarea id="texto" name="texto" rows="12" maxlength="40000" spellcheck="false"
+                    placeholder="CLÁUSULA PRIMEIRA – DO OBJETO&#10;..."></textarea>
+          <div class="exemplos">
+            <span>Sem contrato à mão? Teste com um exemplo fictício:</span>
+            <button type="button" class="botao-link" data-exemplo="armadilhas">com armadilhas</button>
+            <button type="button" class="botao-link" data-exemplo="disfarcadas">armadilhas disfarçadas</button>
+            <button type="button" class="botao-link" data-exemplo="limpo">sem problemas</button>
+          </div>
+        </div>
+
+        <div id="painel-pdf" role="tabpanel" aria-labelledby="aba-pdf" hidden>
+          <label for="arquivo">Contrato em PDF (até 5 MB e 20 páginas, com texto selecionável)</label>
+          <input id="arquivo" name="arquivo" type="file" accept="application/pdf,.pdf">
+        </div>
+
+        <p class="privacidade">O contrato é analisado e descartado: o texto não é gravado em
+          banco de dados. Mesmo assim, prefira apagar nomes e documentos antes de enviar.</p>
+
+        <button type="submit" id="analisar" class="botao">Analisar contrato</button>
+      </form>
+
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="resultado" class="resultado" tabindex="-1" hidden aria-labelledby="titulo-resultado">
+      <h2 id="titulo-resultado"></h2>
+      <p id="provedor" class="provedor"></p>
+      <div id="achados"></div>
+      <details id="detalhe-clausulas">
+        <summary>Ver todas as cláusulas lidas</summary>
+        <ol id="clausulas" class="clausulas"></ol>
+      </details>
+    </section>
+
+    <section id="como-funciona" class="como-funciona" aria-labelledby="titulo-como">
+      <h2 id="titulo-como">Como funciona</h2>
+      <ol class="etapas">
+        <li><strong>Divide</strong> o contrato em cláusulas.</li>
+        <li><strong>A IA lê</strong> cada cláusula e só descreve fatos: tipo de garantia, meses de
+          caução, prazo de reajuste… Todo fato precisa vir com o trecho exato que o prova.</li>
+        <li><strong>Confere as provas.</strong> Se o trecho citado não existe no contrato, o fato é
+          descartado. É a barreira contra a IA inventar.</li>
+        <li><strong>O código aplica a lei.</strong> As 7 regras são funções Python, testadas sem IA.
+          A IA não decide o que é abusivo.</li>
+      </ol>
+      <p>Se a IA principal (Groq) estiver fora do ar, entra uma reserva (Gemini) e, por último,
+        um modo básico por palavras-chave, menos preciso, que funciona sem internet.</p>
+
+      <h3>As 7 regras verificadas</h3>
+      <ul id="regras" class="regras"><li>Carregando…</li></ul>
+
+      <h3>Quanto ela acerta</h3>
+      <p>Medido toda semana em contratos fictícios com gabarito. O "teste cego" são contratos
+        escritos depois do sistema pronto, sem ajuste posterior: é a medida honesta.</p>
+      <div id="metricas" class="metricas"><p>Carregando…</p></div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="largura">
+      <p class="aviso"><strong>Aviso:</strong> este é um programa de teste, feito como projeto de
+        portfólio. Ele pode errar e não substitui um advogado. Não use o resultado como base para
+        decisões reais. Em caso de dúvida, procure um advogado ou a Defensoria Pública.</p>
+      <p>Feito por <a href="https://sunnar.com.br">Danilo Mendes</a> ·
+        <a href="https://github.com/SirDann-sys/lupa-do-aluguel">código-fonte</a></p>
+    </div>
+  </footer>
+</body>
+</html>

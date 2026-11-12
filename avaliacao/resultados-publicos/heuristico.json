@@ -1,0 +1,478 @@
+{
+  "gerado_em": "2026-11-12T16:35:30+00:00",
+  "provedor": "heuristico",
+  "modelo": "regex-v1",
+  "conjuntos": {
+    "desenvolvimento": {
+      "contratos": 9,
+      "contratos_certos": 9,
+      "precisao": 1.0,
+      "recall": 1.0,
+      "vp": 27,
+      "fp": 0,
+      "fn": 0,
+      "por_regra": {
+        "1": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 5,
+          "fp": 0,
+          "fn": 0
+        },
+        "2": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 4,
+          "fp": 0,
+          "fn": 0
+        },
+        "3": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 4,
+          "fp": 0,
+          "fn": 0
+        },
+        "4": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 4,
+          "fp": 0,
+          "fn": 0
+        },
+        "5": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 4,
+          "fp": 0,
+          "fn": 0
+        },
+        "6": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 3,
+          "fp": 0,
+          "fn": 0
+        },
+        "7": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 3,
+          "fp": 0,
+          "fn": 0
+        }
+      }
+    },
+    "teste_cego": {
+      "contratos": 16,
+      "contratos_certos": 10,
+      "precisao": 1.0,
+      "recall": 0.429,
+      "vp": 6,
+      "fp": 0,
+      "fn": 8,
+      "por_regra": {
+        "1": {
+          "precisao": 1.0,
+          "recall": 0.667,
+          "vp": 2,
+          "fp": 0,
+          "fn": 1
+        },
+        "2": {
+          "precisao": 1.0,
+          "recall": 0.5,
+          "vp": 1,
+          "fp": 0,
+          "fn": 1
+        },
+        "3": {
+          "precisao": 1.0,
+          "recall": 0.5,
+          "vp": 1,
+          "fp": 0,
+          "fn": 1
+        },
+        "4": {
+          "precisao": null,
+          "recall": 0.0,
+          "vp": 0,
+          "fp": 0,
+          "fn": 2
+        },
+        "5": {
+          "precisao": null,
+          "recall": 0.0,
+          "vp": 0,
+          "fp": 0,
+          "fn": 1
+        },
+        "6": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "vp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "7": {
+          "precisao": null,
+          "recall": 0.0,
+          "vp": 0,
+          "fp": 0,
+          "fn": 2
+        }
+      }
+    }
+  },
+  "detalhes": [
+    {
+      "arquivo": "01_limpo.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 21
+    },
+    {
+      "arquivo": "02_abusivo_full.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "apontadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 2
+    },
+    {
+      "arquivo": "03_abusivo_sutil.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "apontadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 2
+    },
+    {
+      "arquivo": "04_clausula_dupla.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        2
+      ],
+      "apontadas": [
+        1,
+        2
+      ],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "10_seguro_fianca_ok.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "11_caucao_em_reais.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        1
+      ],
+      "apontadas": [
+        1
+      ],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "12_caucao_no_limite.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "13_reajuste_trimestral.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        6
+      ],
+      "apontadas": [
+        6
+      ],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 0
+    },
+    {
+      "arquivo": "14_reajuste_bienal_ok.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 0
+    },
+    {
+      "arquivo": "15_fiador_e_seguro.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        2
+      ],
+      "apontadas": [
+        2
+      ],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 0
+    },
+    {
+      "arquivo": "16_corretagem.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        4
+      ],
+      "apontadas": [],
+      "certo": false,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 0
+    },
+    {
+      "arquivo": "17_rateio_benfeitorias.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        3
+      ],
+      "apontadas": [],
+      "certo": false,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 0
+    },
+    {
+      "arquivo": "18_pintura_condicionada_ok.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 0
+    },
+    {
+      "arquivo": "19_pintura_branca.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        5
+      ],
+      "apontadas": [],
+      "certo": false,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 0
+    },
+    {
+      "arquivo": "20_tres_primeiros_meses.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        7
+      ],
+      "apontadas": [],
+      "certo": false,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 0
+    },
+    {
+      "arquivo": "21_numerado_sem_paragrafos.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        1,
+        6
+      ],
+      "apontadas": [
+        1,
+        6
+      ],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "22_caucao_e_cessao.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        2
+      ],
+      "apontadas": [],
+      "certo": false,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "23_limpo_longo.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "24_negacao_taxa.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 0
+    },
+    {
+      "arquivo": "25_varias_disfarcadas.txt",
+      "conjunto": "teste_cego",
+      "esperadas": [
+        1,
+        3,
+        4,
+        7
+      ],
+      "apontadas": [
+        3
+      ],
+      "certo": false,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "contrato_1_limpo_A.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "contrato_2_limpo_B.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "contrato_3_sujo_A.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "apontadas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "contrato_4_sujo_B.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "apontadas": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    },
+    {
+      "arquivo": "contrato_5_ambiguo.txt",
+      "conjunto": "desenvolvimento",
+      "esperadas": [],
+      "apontadas": [],
+      "certo": true,
+      "provedor": "heuristico",
+      "fatos_descartados": 0,
+      "ms": 1
+    }
+  ]
+}

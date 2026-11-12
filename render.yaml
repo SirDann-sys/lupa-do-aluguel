@@ -1,0 +1,17 @@
+# Blueprint do Render: API em Docker no plano grátis.
+# As chaves e a URL do banco (Neon) são preenchidas no painel, nunca no repositório.
+services:
+  - type: web
+    name: lupa-do-aluguel-api
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    autoDeployTrigger: checksPass   # só publica depois do CI verde
+    envVars:
+      - key: LUPA_GROQ_API_KEY
+        sync: false
+      - key: LUPA_GEMINI_API_KEY
+        sync: false
+      - key: LUPA_DATABASE_URL
+        sync: false
