@@ -15,7 +15,12 @@ alvo = Base.metadata
 
 
 def _url() -> str:
-    url = context.config.get_main_option("sqlalchemy.url") or Config().database_url
+    config = Config()
+    url = (
+        context.config.get_main_option("sqlalchemy.url")
+        or config.database_url_migracoes
+        or config.database_url
+    )
     if not url:
         raise RuntimeError("Defina LUPA_DATABASE_URL para rodar as migrações.")
     return url

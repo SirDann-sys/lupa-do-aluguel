@@ -50,7 +50,10 @@ class RepositorioSQL:
 
     @classmethod
     def de_url(cls, url: str) -> "RepositorioSQL":
-        return cls(create_engine(url, pool_pre_ping=True))
+        # O pool da Neon (PgBouncer em modo transação) não suporta prepared
+        # statements do lado do servidor; o psycopg os usa por padrão.
+        argumentos = {"prepare_threshold": None} if url.startswith("postgresql+psycopg") else {}
+        return cls(create_engine(url, pool_pre_ping=True, connect_args=argumentos))
 
     def registrar(self, execucao: NovaExecucao) -> None:
         """Grava a métrica. Falha de banco nunca derruba a análise do usuário."""

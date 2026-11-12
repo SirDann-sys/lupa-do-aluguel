@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import pytest
 from alembic import command
 from alembic.autogenerate import compare_metadata
 from alembic.config import Config as ConfigAlembic
@@ -93,3 +94,25 @@ def test_nenhuma_coluna_guarda_texto_de_contrato() -> None:
     colunas = {c.name for c in Base.metadata.tables["execucoes"].columns}
     proibidas = {"texto", "clausula", "clausulas_texto", "trecho", "conteudo", "contrato"}
     assert not colunas & proibidas
+
+
+def test_le_as_variaveis_que_o_neon_init_grava(tmp_path: Path) -> None:
+    from app.config import Config
+
+    arquivo = tmp_path / ".env.local"
+    arquivo.write_text(
+        "DATABASE_URL=postgresql://u:s@pool.neon.tech/db\n"
+        "DATABASE_URL_UNPOOLED=postgresql://u:s@direto.neon.tech/db\n",
+        "utf-8",
+    )
+    config = Config(_env_file=arquivo)
+    assert config.database_url == "postgresql+psycopg://u:s@pool.neon.tech/db"
+    assert config.database_url_migracoes == "postgresql+psycopg://u:s@direto.neon.tech/db"
+
+
+def test_variavel_do_app_tem_prioridade(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    from app.config import Config
+
+    monkeypatch.setenv("LUPA_DATABASE_URL", "sqlite:///app.db")
+    monkeypatch.setenv("DATABASE_URL", "postgresql://u:s@neon/db")
+    assert Config(_env_file=None).database_url == "sqlite:///app.db"

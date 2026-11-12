@@ -1,8 +1,9 @@
 """Configuração por variáveis de ambiente (prefixo LUPA_), validada no boot."""
 
 from functools import lru_cache
+from pathlib import Path
 
-from pydantic import SecretStr, field_validator
+from pydantic import AliasChoices, Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 AVISO = (
@@ -11,8 +12,17 @@ AVISO = (
 )
 
 
+RAIZ = Path(__file__).resolve().parents[2]
+
+
 class Config(BaseSettings):
-    model_config = SettingsConfigDict(env_prefix="LUPA_", env_file=".env", extra="ignore")
+    # `.env.local` é onde o `neon init` grava as variáveis do projeto Neon.
+    model_config = SettingsConfigDict(
+        env_prefix="LUPA_",
+        env_file=(RAIZ / ".env", RAIZ / ".env.local"),
+        extra="ignore",
+        populate_by_name=True,
+    )
 
     groq_api_key: SecretStr | None = None
     groq_modelo: str = "openai/gpt-oss-120b"
@@ -22,7 +32,18 @@ class Config(BaseSettings):
     gemini_modelo: str = "gemini-2.5-flash"
     gemini_url: str = "https://generativelanguage.googleapis.com/v1beta/openai"
 
-    database_url: str | None = "sqlite:///./lupa.db"
+    # Aceita o nome da Neon/Render (DATABASE_URL) e o do app (LUPA_DATABASE_URL).
+    database_url: str | None = Field(
+        "sqlite:///./lupa.db",
+        validation_alias=AliasChoices("LUPA_DATABASE_URL", "DATABASE_URL", "database_url"),
+    )
+    # Conexão direta (sem pool) da Neon: a recomendada para migrações.
+    database_url_migracoes: str | None = Field(
+        None,
+        validation_alias=AliasChoices(
+            "LUPA_DATABASE_URL_MIGRACOES", "DATABASE_URL_UNPOOLED", "database_url_migracoes"
+        ),
+    )
 
     cors_origens: list[str] = [
         "https://sirdann-sys.github.io",
@@ -43,7 +64,7 @@ class Config(BaseSettings):
     cache_ttl_segundos: int = 86_400
     cache_max_itens: int = 500
 
-    @field_validator("database_url")
+    @field_validator("database_url", "database_url_migracoes")
     @classmethod
     def _driver_postgres(cls, url: str | None) -> str | None:
         """Neon e Render entregam `postgres(ql)://`; o SQLAlchemy precisa saber o driver."""
