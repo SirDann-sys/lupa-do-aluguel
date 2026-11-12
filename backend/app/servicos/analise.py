@@ -135,7 +135,10 @@ class ServicoAnalise:
             fatos_descartados=descartados,
             aviso=AVISO,
         )
-        self._cache.guardar(chave, relatorio)
+        # Resultado vindo de uma reserva (o provedor principal falhou) não entra no
+        # cache: senão o mesmo contrato ficaria preso à análise pior por 24 h.
+        if not extracao.falhas:
+            self._cache.guardar(chave, relatorio)
         log.info(
             "analise_concluida",
             extra={

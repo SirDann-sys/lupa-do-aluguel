@@ -159,6 +159,22 @@ async def test_reserva_e_registrada_na_metrica() -> None:
     assert repositorio.execucoes[0].usou_reserva
 
 
+async def test_resultado_da_reserva_nao_vai_para_o_cache() -> None:
+    principal = ExtratorFixo(
+        "groq",
+        [ErroProvedor("groq", "429", temporario=True, espera=99), [fatos(1), fatos(2), fatos(3)]],
+    )
+    reserva = ExtratorFixo("heuristico", construir=caucao_cinco_meses)
+    servico, _ = _servico(principal, reserva)
+
+    primeiro = await servico.analisar(CONTRATO_CURTO)
+    segundo = await servico.analisar(CONTRATO_CURTO)
+
+    assert primeiro.provedor == "heuristico"
+    assert segundo.provedor == "groq"  # o principal voltou e a análise foi refeita
+    assert not segundo.em_cache
+
+
 @pytest.mark.parametrize(
     ("texto", "mensagem"),
     [
