@@ -65,7 +65,7 @@ jobs:
           for i in $(seq 1 30); do curl -sf localhost:8000/health && break; sleep 1; done
           curl -sf localhost:8000/health | grep -q '"heuristico"'
           curl -sf -X POST localhost:8000/v1/analises -H 'Content-Type: application/json' \
-            --data "$(python3 -c 'import json; print(json.dumps({"texto": open("avaliacao/contratos/02_abusivo_full.txt", encoding="utf-8").read()}))')" \
+            --data "$(python3 -c 'import json; print(json.dumps({"consentimento": True, "texto": open("avaliacao/contratos/02_abusivo_full.txt", encoding="utf-8").read()}))')" \
             | python3 -c 'import json, sys; r = json.load(sys.stdin); regras = sorted({a["regra"] for a in r["achados"]}); print(regras); assert regras == [1, 2, 3, 4, 5, 6, 7]'
           docker exec api id -u | grep -qv '^0$'   # não roda como root
       - if: failure()

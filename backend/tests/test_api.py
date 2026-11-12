@@ -24,7 +24,7 @@ def test_lista_as_sete_regras(cliente: TestClient) -> None:
 
 
 def test_analisa_texto(cliente: TestClient) -> None:
-    resposta = cliente.post("/v1/analises", json={"texto": CONTRATO_CURTO})
+    resposta = cliente.post("/v1/analises", json={"consentimento": True, "texto": CONTRATO_CURTO})
     assert resposta.status_code == 200
     corpo = resposta.json()
     assert [a["regra"] for a in corpo["achados"]] == [1]
@@ -47,7 +47,7 @@ def _pdf(texto: str) -> bytes:
 
 def test_analisa_pdf(cliente: TestClient) -> None:
     arquivo = {"arquivo": ("contrato.pdf", _pdf(CONTRATO_CURTO), "application/pdf")}
-    resposta = cliente.post("/v1/analises/pdf", files=arquivo)
+    resposta = cliente.post("/v1/analises/pdf", files=arquivo, data={"consentimento": "true"})
     assert resposta.status_code == 200
     assert [a["regra"] for a in resposta.json()["achados"]] == [1]
 
@@ -57,14 +57,14 @@ def test_pdf_grande_demais(config: Config) -> None:
     app = criar_app(config, extratores=[ExtratorFixo(construir=caucao_cinco_meses)])
     with TestClient(app) as cliente:
         arquivo = {"arquivo": ("c.pdf", b"%PDF-" + b"0" * 200, "application/pdf")}
-        resposta = cliente.post("/v1/analises/pdf", files=arquivo)
+        resposta = cliente.post("/v1/analises/pdf", files=arquivo, data={"consentimento": "true"})
     assert resposta.status_code == 422
     assert resposta.json()["erro"]["codigo"] == "entrada_invalida"
 
 
 def test_arquivo_que_nao_e_pdf(cliente: TestClient) -> None:
     arquivo = {"arquivo": ("c.pdf", b"isto nao e pdf", "application/pdf")}
-    resposta = cliente.post("/v1/analises/pdf", files=arquivo)
+    resposta = cliente.post("/v1/analises/pdf", files=arquivo, data={"consentimento": "true"})
     assert resposta.status_code == 415
     assert resposta.json()["erro"]["codigo"] == "arquivo_invalido"
 
@@ -77,7 +77,7 @@ def test_corpo_invalido_tem_erro_padronizado(cliente: TestClient) -> None:
 
 
 def test_texto_sem_clausulas(cliente: TestClient) -> None:
-    resposta = cliente.post("/v1/analises", json={"texto": "oi"})
+    resposta = cliente.post("/v1/analises", json={"consentimento": True, "texto": "oi"})
     assert resposta.status_code == 422
     assert "cláusulas" in resposta.json()["erro"]["mensagem"]
 
@@ -87,25 +87,29 @@ def test_limite_por_ip_devolve_429_com_retry_after(cliente: TestClient) -> None:
     for _ in range(3):
         assert (
             cliente.post(
-                "/v1/analises", json={"texto": CONTRATO_CURTO}, headers=cabecalho
+                "/v1/analises",
+                json={"consentimento": True, "texto": CONTRATO_CURTO},
+                headers=cabecalho,
             ).status_code
             == 200
         )
-    resposta = cliente.post("/v1/analises", json={"texto": CONTRATO_CURTO}, headers=cabecalho)
+    resposta = cliente.post(
+        "/v1/analises", json={"consentimento": True, "texto": CONTRATO_CURTO}, headers=cabecalho
+    )
     assert resposta.status_code == 429
     assert int(resposta.headers["retry-after"]) > 0
     # outro IP real (último item do X-Forwarded-For) continua livre
     outro = cliente.post(
         "/v1/analises",
-        json={"texto": CONTRATO_CURTO},
+        json={"consentimento": True, "texto": CONTRATO_CURTO},
         headers={"X-Forwarded-For": "8.8.8.8, 10.0.0.2"},
     )
     assert outro.status_code == 200
 
 
 def test_estatisticas_contam_as_analises(cliente: TestClient) -> None:
-    cliente.post("/v1/analises", json={"texto": CONTRATO_CURTO})
-    cliente.post("/v1/analises", json={"texto": "oi"})
+    cliente.post("/v1/analises", json={"consentimento": True, "texto": CONTRATO_CURTO})
+    cliente.post("/v1/analises", json={"consentimento": True, "texto": "oi"})
     dados = cliente.get("/v1/estatisticas?dias=7").json()
     assert dados["analises"] == 1
     assert dados["erros"] == 1
@@ -142,7 +146,9 @@ def test_erro_inesperado_nao_vaza_detalhes(config: Config) -> None:
 
     app = criar_app(config, extratores=[Quebrado()])  # type: ignore[list-item]
     with TestClient(app, raise_server_exceptions=False) as cliente:
-        resposta = cliente.post("/v1/analises", json={"texto": CONTRATO_CURTO})
+        resposta = cliente.post(
+            "/v1/analises", json={"consentimento": True, "texto": CONTRATO_CURTO}
+        )
     assert resposta.status_code == 500
     assert resposta.json()["erro"]["codigo"] == "erro_interno"
     assert "segredo" not in resposta.text
@@ -167,5 +173,27 @@ def test_sem_banco_as_metricas_ficam_desligadas(tmp_path: Path) -> None:
     config = Config(_env_file=None, database_url=None)
     app = criar_app(config, extratores=[ExtratorFixo(construir=caucao_cinco_meses)])
     with TestClient(app) as cliente:
-        cliente.post("/v1/analises", json={"texto": CONTRATO_CURTO})
+        cliente.post("/v1/analises", json={"consentimento": True, "texto": CONTRATO_CURTO})
         assert cliente.get("/v1/estatisticas").json()["analises"] == 0
+
+
+def test_sem_consentimento_a_analise_e_recusada(cliente: TestClient) -> None:
+    resposta = cliente.post("/v1/analises", json={"texto": CONTRATO_CURTO})
+    assert resposta.status_code == 422
+    assert resposta.json()["erro"]["codigo"] == "consentimento_ausente"
+    negado = cliente.post("/v1/analises", json={"texto": CONTRATO_CURTO, "consentimento": False})
+    assert negado.json()["erro"]["codigo"] == "consentimento_ausente"
+
+
+def test_pdf_sem_consentimento_e_recusado(cliente: TestClient) -> None:
+    arquivo = {"arquivo": ("contrato.pdf", _pdf(CONTRATO_CURTO), "application/pdf")}
+    resposta = cliente.post("/v1/analises/pdf", files=arquivo)
+    assert resposta.status_code == 422
+    assert resposta.json()["erro"]["codigo"] == "consentimento_ausente"
+
+
+def test_recusa_por_falta_de_consentimento_nao_conta_no_limite(cliente: TestClient) -> None:
+    for _ in range(5):
+        cliente.post("/v1/analises", json={"texto": CONTRATO_CURTO})
+    ok = cliente.post("/v1/analises", json={"consentimento": True, "texto": CONTRATO_CURTO})
+    assert ok.status_code == 200

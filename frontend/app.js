@@ -88,12 +88,13 @@ async function enviar(evento) {
     if (!texto) return status("Cole o texto do contrato ou escolha um exemplo.", "erro");
     pedido = { url: "/v1/analises", opcoes: {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ texto }) } };
+      body: JSON.stringify({ texto, consentimento: true }) } };
   } else {
     const arquivo = $("arquivo").files[0];
     if (!arquivo) return status("Escolha o arquivo PDF do contrato.", "erro");
     const dados = new FormData();
     dados.append("arquivo", arquivo);
+    dados.append("consentimento", "true");
     pedido = { url: "/v1/analises/pdf", opcoes: { method: "POST", body: dados } };
   }
 

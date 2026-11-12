@@ -15,6 +15,11 @@ class EntradaInvalida(ErroLupa):
     codigo = "entrada_invalida"
 
 
+class ConsentimentoAusente(ErroLupa):
+    status = 422
+    codigo = "consentimento_ausente"
+
+
 class ArquivoInvalido(ErroLupa):
     status = 415
     codigo = "arquivo_invalido"

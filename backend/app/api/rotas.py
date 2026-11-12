@@ -2,7 +2,7 @@
 
 from typing import Annotated, Any
 
-from fastapi import APIRouter, File, Query, Request, UploadFile
+from fastapi import APIRouter, File, Form, Query, Request, UploadFile
 from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
 
@@ -11,7 +11,7 @@ from app.db.repositorio import Repositorio
 from app.dominio.modelos import Relatorio
 from app.dominio.regras import REGRAS
 from app.entrada.pdf import extrair_texto
-from app.erros import EntradaInvalida
+from app.erros import ConsentimentoAusente, EntradaInvalida
 from app.servicos.analise import ServicoAnalise
 from app.servicos.limites import Limites
 
@@ -20,6 +20,11 @@ roteador = APIRouter(prefix="/v1")
 
 class PedidoAnalise(BaseModel):
     texto: str = Field(min_length=1, max_length=200_000, description="Texto do contrato.")
+    consentimento: bool = Field(
+        False,
+        description="O usuário leu o aviso de privacidade e consentiu com o envio do texto "
+        "ao provedor de IA (LGPD, art. 7º, I). Sem isso a análise é recusada.",
+    )
 
 
 class RegraPublica(BaseModel):
@@ -39,6 +44,14 @@ def ip_do_cliente(request: Request) -> str:
     return request.client.host if request.client else "desconhecido"
 
 
+def _exigir_consentimento(consentimento: bool) -> None:
+    """O consentimento é checado no servidor: a caixa da página sozinha não basta."""
+    if not consentimento:
+        raise ConsentimentoAusente(
+            "Para analisar, é preciso concordar com o envio do texto. Veja o aviso de privacidade."
+        )
+
+
 def _servico(request: Request) -> ServicoAnalise:
     servico: ServicoAnalise = request.app.state.servico
     return servico
@@ -51,12 +64,18 @@ def _limitar(request: Request) -> None:
 
 @roteador.post("/analises", response_model=Relatorio, summary="Analisa o texto de um contrato")
 async def analisar_texto(pedido: PedidoAnalise, request: Request) -> Relatorio:
+    _exigir_consentimento(pedido.consentimento)
     _limitar(request)
     return await _servico(request).analisar(pedido.texto, origem="texto")
 
 
 @roteador.post("/analises/pdf", response_model=Relatorio, summary="Analisa um contrato em PDF")
-async def analisar_pdf(request: Request, arquivo: Annotated[UploadFile, File()]) -> Relatorio:
+async def analisar_pdf(
+    request: Request,
+    arquivo: Annotated[UploadFile, File()],
+    consentimento: Annotated[bool, Form()] = False,
+) -> Relatorio:
+    _exigir_consentimento(consentimento)
     config: Config = request.app.state.config
     conteudo = await arquivo.read(config.max_pdf_bytes + 1)
     if len(conteudo) > config.max_pdf_bytes:
