@@ -58,8 +58,19 @@
           <input id="arquivo" name="arquivo" type="file" accept="application/pdf,.pdf">
         </div>
 
-        <p class="privacidade">O contrato é analisado e descartado: o texto não é gravado em
-          banco de dados. Mesmo assim, prefira apagar nomes e documentos antes de enviar.</p>
+        <div class="privacidade">
+          <p><strong>Não envie dados pessoais nem sensíveis.</strong> Apague nomes, CPF, RG,
+            endereços, dados bancários e qualquer informação de saúde, religião ou similar: a análise
+            funciona do mesmo jeito. Por segurança, CPF, RG, CNPJ, e-mail, telefone e CEP são
+            mascarados automaticamente antes de qualquer envio.</p>
+          <p>O texto é enviado à Groq (EUA) para a IA ler as cláusulas e não é gravado em banco de
+            dados. Detalhes no <a href="privacidade.html">aviso de privacidade</a>.</p>
+          <label class="consentimento">
+            <input type="checkbox" id="consentimento" required>
+            Li o aviso de privacidade, retirei os dados pessoais do contrato e concordo com o envio
+            do texto para análise.
+          </label>
+        </div>
 
         <button type="submit" id="analisar" class="botao">Analisar contrato</button>
       </form>
@@ -107,6 +118,7 @@
         portfólio. Ele pode errar e não substitui um advogado. Não use o resultado como base para
         decisões reais. Em caso de dúvida, procure um advogado ou a Defensoria Pública.</p>
       <p>Feito por <a href="https://sunnar.com.br">Danilo Mendes</a> ·
+        <a href="privacidade.html">aviso de privacidade (LGPD)</a> ·
         <a href="https://github.com/SirDann-sys/lupa-do-aluguel">código-fonte</a></p>
     </div>
   </footer>

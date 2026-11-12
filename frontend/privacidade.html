@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>Aviso de privacidade · Lupa do Aluguel</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="largura">
+      <p class="marca"><img src="favicon.svg" alt="" width="28" height="28"> Lupa do Aluguel</p>
+      <nav aria-label="Navegação"><a href="./">Voltar para a análise</a></nav>
+    </div>
+  </header>
+
+  <main class="largura">
+    <article class="painel texto-longo">
+      <h1>Aviso de privacidade</h1>
+      <p class="atualizado">Atualizado em 12 de novembro de 2026.</p>
+
+      <p>A Lupa do Aluguel é um projeto de demonstração, sem fins comerciais, feito por Danilo Mendes
+        Bomfim como portfólio. Este aviso explica, conforme a Lei Geral de Proteção de Dados
+        (Lei 13.709/2018, a LGPD), o que acontece com os dados quando você usa a ferramenta.</p>
+
+      <h2>Quem é o responsável</h2>
+      <p>Danilo Mendes Bomfim, controlador dos dados tratados por esta ferramenta.
+        Contato: <a href="mailto:contato@sunnar.com.br">contato@sunnar.com.br</a>.</p>
+
+      <h2>Que dados são tratados</h2>
+      <ul>
+        <li><strong>O texto do contrato</strong> que você cola ou envia em PDF.
+          <strong>Não envie dados pessoais nem dados pessoais sensíveis</strong> (art. 5º, II, da LGPD:
+          origem racial, religião, opinião política, saúde, vida sexual, dados genéticos ou biométricos).
+          Apague nomes, documentos, endereços e dados bancários antes de enviar: a análise funciona do
+          mesmo jeito. Como proteção extra, o servidor troca automaticamente CPF, RG, CNPJ, e-mail,
+          telefone e CEP por marcadores como [CPF] antes de qualquer envio à IA; nomes não são
+          detectados automaticamente.</li>
+        <li><strong>Seu endereço IP</strong>, usado só para limitar o número de análises por pessoa
+          e evitar abuso.</li>
+        <li><strong>Métricas de uso sem conteúdo</strong>: data, se veio de texto ou PDF, quantas
+          cláusulas, quais regras foram apontadas, tempo de resposta e qual serviço de IA respondeu.</li>
+      </ul>
+
+      <h2>Para que</h2>
+      <p>Exclusivamente para fazer a análise que você pediu, proteger o serviço contra abuso e medir
+        se a ferramenta está funcionando. Os dados não são vendidos, não são usados para publicidade e
+        não são usados por nós para treinar modelos de IA.</p>
+
+      <h2>Com quem são compartilhados</h2>
+      <ul>
+        <li><strong>Groq, Inc. (Estados Unidos)</strong>: o texto das cláusulas é enviado à Groq para que o
+          modelo de IA extraia os fatos de cada cláusula. Isso é uma transferência internacional de
+          dados (art. 33 da LGPD). O tratamento pela Groq segue a
+          <a href="https://groq.com/privacy-policy/">política de privacidade da Groq</a>.</li>
+        <li><strong>Render (Estados Unidos)</strong>: hospeda o servidor que processa a análise.</li>
+        <li><strong>Neon (Estados Unidos)</strong>: hospeda o banco de dados com as métricas sem conteúdo.</li>
+        <li><strong>GitHub (Estados Unidos)</strong>: hospeda esta página e pode registrar dados técnicos
+          de acesso, como qualquer site, conforme a
+          <a href="https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement">declaração de privacidade do GitHub</a>.</li>
+      </ul>
+
+      <h2>Por quanto tempo</h2>
+      <ul>
+        <li><strong>Texto do contrato</strong>: não é gravado em banco de dados nem em disco. Fica só na
+          memória do servidor, para reaproveitar o resultado se o mesmo contrato for enviado de novo,
+          por no máximo 24 horas. Na prática some antes, porque o servidor gratuito é reiniciado depois
+          de 15 minutos sem uso.</li>
+        <li><strong>Endereço IP</strong>: fica só na memória do servidor e é apagado todo dia. Não é gravado
+          em banco de dados nem nos registros (logs) da aplicação.</li>
+        <li><strong>Métricas sem conteúdo</strong>: guardadas por tempo indeterminado, porque não identificam
+          ninguém.</li>
+      </ul>
+
+      <h2>Base legal</h2>
+      <p>Seu consentimento (art. 7º, I, da LGPD), dado ao marcar a caixa antes de enviar o contrato.
+        Você pode simplesmente não enviar nada: a página continua acessível.</p>
+
+      <h2>Seus direitos</h2>
+      <p>Pelo art. 18 da LGPD, você pode pedir confirmação de tratamento, acesso, correção, eliminação
+        dos dados, informação sobre compartilhamento e revogação do consentimento. Como o texto do
+        contrato não é guardado e as métricas não identificam ninguém, normalmente não há dado seu
+        armazenado para entregar ou apagar. Mesmo assim, escreva para
+        <a href="mailto:contato@sunnar.com.br">contato@sunnar.com.br</a> que respondemos.
+        Você também pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD).</p>
+
+      <h2>Segurança</h2>
+      <p>Toda comunicação é feita por HTTPS. O servidor aceita pedidos só desta página e de sunnar.com.br,
+        e o código é público em
+        <a href="https://github.com/SirDann-sys/lupa-do-aluguel">github.com/SirDann-sys/lupa-do-aluguel</a>,
+        para quem quiser conferir o que está escrito aqui.</p>
+    </article>
+  </main>
+
+  <footer class="rodape">
+    <div class="largura">
+      <p class="aviso"><strong>Aviso:</strong> este é um programa de teste, feito como projeto de
+        portfólio. Ele pode errar e não substitui um advogado. Não use o resultado como base para
+        decisões reais.</p>
+    </div>
+  </footer>
+</body>
+</html>

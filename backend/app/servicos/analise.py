@@ -1,6 +1,6 @@
 """Orquestra uma análise: texto -> cláusulas -> fatos -> provas -> regras -> relatório.
 
-    normalizar -> hash -> cache? -> dividir -> extrair (cadeia de provedores)
+    mascarar dados pessoais -> hash -> cache? -> dividir -> extrair (cadeia de provedores)
                -> validar evidências -> avaliar regras -> relatório -> métrica
 
 O texto do contrato só existe em memória durante a requisição (e no cache em
@@ -18,6 +18,7 @@ from app.config import AVISO
 from app.db.repositorio import NovaExecucao, Repositorio
 from app.dominio import evidencias, regras
 from app.dominio.modelos import ClausulaRelatorio, FatosClausula, Relatorio
+from app.entrada.anonimizar import mascarar
 from app.entrada.divisor import dividir
 from app.erros import EntradaInvalida, ErroLupa
 from app.llm.base import Extracao
@@ -100,6 +101,7 @@ class ServicoAnalise:
                 f"{self._max_caracteres:,}.".replace(",", ".")
             )
 
+        texto, mascarados = mascarar(texto)
         chave = chave_de_cache(texto)
         if (em_cache := self._cache.obter(chave)) is not None:
             return em_cache.model_copy(update={"em_cache": True}), None
@@ -133,6 +135,7 @@ class ServicoAnalise:
             provedor=extracao.provedor,
             modelo=extracao.modelo,
             fatos_descartados=descartados,
+            dados_mascarados=mascarados,
             aviso=AVISO,
         )
         # Resultado vindo de uma reserva (o provedor principal falhou) não entra no

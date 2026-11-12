@@ -22,4 +22,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s \
   CMD python -c "import os, urllib.request; urllib.request.urlopen(f'http://127.0.0.1:{os.environ[\"PORT\"]}/health', timeout=4)"
 # Migra o banco e sobe a API. --proxy-headers: o Render fica na frente, com HTTPS.
-CMD ["sh", "-c", "alembic upgrade head && exec uvicorn app.main:app_producao --factory --host 0.0.0.0 --port ${PORT} --proxy-headers --forwarded-allow-ips='*'"]
+# --no-access-log: o log padrão do uvicorn grava o IP; os logs da aplicação não gravam.
+CMD ["sh", "-c", "alembic upgrade head && exec uvicorn app.main:app_producao --factory --host 0.0.0.0 --port ${PORT} --proxy-headers --forwarded-allow-ips='*' --no-access-log"]

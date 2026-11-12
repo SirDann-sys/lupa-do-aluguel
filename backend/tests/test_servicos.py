@@ -203,3 +203,22 @@ async def test_sem_provedores_disponiveis() -> None:
     with pytest.raises(ProvedoresIndisponiveis):
         await servico.analisar(CONTRATO_CURTO)
     assert repositorio.execucoes[0].status == "provedores_indisponiveis"
+
+
+async def test_dados_pessoais_nao_chegam_a_ia() -> None:
+    recebido: list[str] = []
+
+    def espiao(clausulas: list[str]) -> list:  # type: ignore[type-arg]
+        recebido.extend(clausulas)
+        return caucao_cinco_meses(clausulas)
+
+    texto = CONTRATO_CURTO.replace(
+        "pago até o dia 5.", "pago até o dia 5 ao LOCADOR, CPF 123.456.789-00, joao@exemplo.com."
+    )
+    servico, _ = _servico(ExtratorFixo(construir=espiao))
+    relatorio = await servico.analisar(texto)
+
+    assert relatorio.dados_mascarados == 2
+    assert not any("123.456.789-00" in c or "joao@exemplo.com" in c for c in recebido)
+    assert "[CPF]" in relatorio.clausulas[0].texto
+    assert [a.regra for a in relatorio.achados] == [1]

@@ -95,7 +95,16 @@ textarea { resize: vertical; min-height: 220px; }
 .exemplos { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; margin-top: 8px; font-size: 0.9rem; color: var(--suave); }
 .botao-link { font: inherit; background: none; border: 0; padding: 0; color: var(--destaque); text-decoration: underline; cursor: pointer; }
 
-.privacidade { font-size: 0.85rem; color: var(--suave); margin: 16px 0; }
+.privacidade { font-size: 0.88rem; color: var(--suave); margin: 16px 0; background: var(--aviso-fundo); border-radius: 8px; padding: 12px 14px; }
+.privacidade p { margin: 0 0 8px; }
+.privacidade strong { color: var(--texto); }
+.consentimento { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; color: var(--texto); margin: 10px 0 0; cursor: pointer; }
+.consentimento input { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: var(--destaque); }
+.texto-longo { line-height: 1.7; }
+.texto-longo h1 { margin-bottom: 4px; }
+.texto-longo h2 { font-size: 1.15rem; margin: 26px 0 8px; }
+.texto-longo li { margin: 6px 0; }
+.atualizado { color: var(--suave); font-size: 0.85rem; margin-top: 0; }
 
 .botao {
   font: inherit; font-weight: 600; background: var(--destaque); color: var(--destaque-texto);

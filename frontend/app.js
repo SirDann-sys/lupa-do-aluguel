@@ -78,6 +78,11 @@ async function enviar(evento) {
   const botao = $("analisar");
   let pedido;
 
+  if (!$("consentimento").checked) {
+    $("consentimento").focus();
+    return status("Para analisar, marque a caixa de consentimento sobre o envio do texto.", "erro");
+  }
+
   if (abaAtiva() === "aba-texto") {
     const texto = $("texto").value.trim();
     if (!texto) return status("Cole o texto do contrato ou escolha um exemplo.", "erro");
@@ -141,6 +146,11 @@ function mostrarRelatorio(relatorio) {
     linhaProvedor.textContent = `${clausulas.length} cláusulas lidas por ${nome} (${modelo})` +
       (emCache ? " · resultado reaproveitado de uma análise idêntica recente" : "") + ".";
     linhaProvedor.className = "provedor";
+  }
+  if (relatorio.dados_mascarados) {
+    const n = relatorio.dados_mascarados;
+    linhaProvedor.textContent += ` ${n} ${n === 1 ? "dado pessoal foi mascarado"
+      : "dados pessoais foram mascarados"} antes do envio.`;
   }
 
   const lista = $("achados");

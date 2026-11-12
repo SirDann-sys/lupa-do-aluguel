@@ -101,5 +101,8 @@ class Relatorio(BaseModel):
     fatos_descartados: int = Field(
         description="Fatos ignorados porque a evidência não foi encontrada no texto."
     )
+    dados_mascarados: int = Field(
+        0, description="CPF, RG, CNPJ, e-mail, telefone e CEP trocados por marcadores antes da IA."
+    )
     em_cache: bool = False
     aviso: str
