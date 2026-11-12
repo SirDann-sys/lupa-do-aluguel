@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-11-12T16:35:30+00:00",
+  "gerado_em": "2026-11-12T16:50:38+00:00",
   "provedor": "heuristico",
   "modelo": "regex-v1",
   "conjuntos": {
@@ -133,7 +133,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 21
+      "ms": 16
     },
     {
       "arquivo": "02_abusivo_full.txt",
@@ -159,7 +159,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 2
+      "ms": 3
     },
     {
       "arquivo": "03_abusivo_sutil.txt",
@@ -185,7 +185,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 2
+      "ms": 3
     },
     {
       "arquivo": "04_clausula_dupla.txt",
@@ -249,7 +249,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 0
+      "ms": 1
     },
     {
       "arquivo": "14_reajuste_bienal_ok.txt",
@@ -259,7 +259,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 0
+      "ms": 1
     },
     {
       "arquivo": "15_fiador_e_seguro.txt",
@@ -273,7 +273,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 0
+      "ms": 1
     },
     {
       "arquivo": "16_corretagem.txt",
@@ -285,7 +285,7 @@
       "certo": false,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 0
+      "ms": 1
     },
     {
       "arquivo": "17_rateio_benfeitorias.txt",
@@ -297,7 +297,7 @@
       "certo": false,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 0
+      "ms": 1
     },
     {
       "arquivo": "18_pintura_condicionada_ok.txt",
@@ -307,7 +307,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 0
+      "ms": 1
     },
     {
       "arquivo": "19_pintura_branca.txt",
@@ -319,7 +319,7 @@
       "certo": false,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 0
+      "ms": 1
     },
     {
       "arquivo": "20_tres_primeiros_meses.txt",
@@ -331,7 +331,7 @@
       "certo": false,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 0
+      "ms": 1
     },
     {
       "arquivo": "21_numerado_sem_paragrafos.txt",
@@ -369,7 +369,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 1
+      "ms": 2
     },
     {
       "arquivo": "24_negacao_taxa.txt",
@@ -379,7 +379,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 0
+      "ms": 1
     },
     {
       "arquivo": "25_varias_disfarcadas.txt",
@@ -406,7 +406,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 1
+      "ms": 2
     },
     {
       "arquivo": "contrato_2_limpo_B.txt",
@@ -442,7 +442,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 1
+      "ms": 2
     },
     {
       "arquivo": "contrato_4_sujo_B.txt",
@@ -462,7 +462,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 1
+      "ms": 2
     },
     {
       "arquivo": "contrato_5_ambiguo.txt",
@@ -472,7 +472,7 @@
       "certo": true,
       "provedor": "heuristico",
       "fatos_descartados": 0,
-      "ms": 1
+      "ms": 2
     }
   ]
 }
