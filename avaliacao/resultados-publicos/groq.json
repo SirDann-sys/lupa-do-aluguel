@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-11-12T17:23:13+00:00",
+  "gerado_em": "2026-11-16T19:11:42+00:00",
   "provedor": "groq",
   "modelo": "openai/gpt-oss-120b",
   "conjuntos": {
@@ -133,7 +133,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 5635
+      "ms": 6898
     },
     {
       "arquivo": "02_abusivo_full.txt",
@@ -159,7 +159,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 13023
+      "ms": 9228
     },
     {
       "arquivo": "03_abusivo_sutil.txt",
@@ -185,7 +185,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 10255
+      "ms": 7266
     },
     {
       "arquivo": "04_clausula_dupla.txt",
@@ -201,7 +201,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 4559
+      "ms": 5312
     },
     {
       "arquivo": "10_seguro_fianca_ok.txt",
@@ -211,7 +211,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 6789
+      "ms": 29534
     },
     {
       "arquivo": "11_caucao_em_reais.txt",
@@ -225,7 +225,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 8062
+      "ms": 5695
     },
     {
       "arquivo": "12_caucao_no_limite.txt",
@@ -235,7 +235,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 5853
+      "ms": 15906
     },
     {
       "arquivo": "13_reajuste_trimestral.txt",
@@ -249,7 +249,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 5121
+      "ms": 3420
     },
     {
       "arquivo": "14_reajuste_bienal_ok.txt",
@@ -259,7 +259,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 3547
+      "ms": 4057
     },
     {
       "arquivo": "15_fiador_e_seguro.txt",
@@ -273,7 +273,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 5272
+      "ms": 5032
     },
     {
       "arquivo": "16_corretagem.txt",
@@ -287,7 +287,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 5409
+      "ms": 7600
     },
     {
       "arquivo": "17_rateio_benfeitorias.txt",
@@ -301,7 +301,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 6145
+      "ms": 5702
     },
     {
       "arquivo": "18_pintura_condicionada_ok.txt",
@@ -311,7 +311,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 6414
+      "ms": 4717
     },
     {
       "arquivo": "19_pintura_branca.txt",
@@ -325,7 +325,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 6714
+      "ms": 4816
     },
     {
       "arquivo": "20_tres_primeiros_meses.txt",
@@ -339,7 +339,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 6702
+      "ms": 4556
     },
     {
       "arquivo": "21_numerado_sem_paragrafos.txt",
@@ -355,7 +355,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 4380
+      "ms": 5860
     },
     {
       "arquivo": "22_caucao_e_cessao.txt",
@@ -369,7 +369,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 5368
+      "ms": 6039
     },
     {
       "arquivo": "23_limpo_longo.txt",
@@ -379,7 +379,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 7387
+      "ms": 12092
     },
     {
       "arquivo": "24_negacao_taxa.txt",
@@ -389,7 +389,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 5948
+      "ms": 4888
     },
     {
       "arquivo": "25_varias_disfarcadas.txt",
@@ -409,7 +409,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 35184
+      "ms": 17631
     },
     {
       "arquivo": "contrato_1_limpo_A.txt",
@@ -419,7 +419,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 19252
+      "ms": 9634
     },
     {
       "arquivo": "contrato_2_limpo_B.txt",
@@ -429,7 +429,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 7715
+      "ms": 5447
     },
     {
       "arquivo": "contrato_3_sujo_A.txt",
@@ -455,7 +455,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 10198
+      "ms": 8891
     },
     {
       "arquivo": "contrato_4_sujo_B.txt",
@@ -475,7 +475,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 8170
+      "ms": 32133
     },
     {
       "arquivo": "contrato_5_ambiguo.txt",
@@ -485,7 +485,7 @@
       "certo": true,
       "provedor": "groq",
       "fatos_descartados": 0,
-      "ms": 12605
+      "ms": 5732
     }
   ]
 }
